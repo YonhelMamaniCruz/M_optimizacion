@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gauss-Jordan Web</title>
+</head>
+<body>
+    <h2>Resolver sistema de ecuaciones por Gauss-Jordan</h2>
+
+    <form method="post">
+        <p>Ingrese número de ecuaciones: <input type="number" name="n" min="2" value="{{ n or 3 }}"></p>
+        <input type="submit" value="Generar matriz">
+    </form>
+
+    {% if n > 0 %}
+    <form method="post">
+        <input type="hidden" name="n" value="{{ n }}">
+        <table border="1">
+            {% for i in range(n) %}
+            <tr>
+                {% for j in range(n) %}
+                <td><input type="text" name="v_{{i}}_{{j}}" placeholder="a{{i+1}}{{j+1}}" required></td>
+                {% endfor %}
+                <td>=</td>
+                <td><input type="text" name="v_{{i}}_{{n}}" placeholder="b{{i+1}}" required></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Resolver">
+    </form>
+    {% endif %}
+
+    {% if resultado %}
+        <h3>Resultado:</h3>
+        <ul>
+            {% for r in resultado %}
+                <li>{{ r }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
