@@ -1,0 +1,97 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+
+\title{Un modelo de programación lineal entera mixta para la cosecha, carga y transporte de caña de azúcar}
+\subtitle{Un estudio de caso en el Perú}
+\author{Yonhel Mamani Cruz}
+\date{\today}
+
+\begin{document}
+
+% Diapositiva 1: Portada con introducción breve
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{ Optimización de la cosecha, carga y transporte de caña de azúcar}
+  \begin{itemize}
+    \item El documento aborda un problema real en Perú: cómo organizar eficientemente la \textbf{cosecha, carga y transporte} de caña de azúcar desde los campos hasta las fábricas.
+    \vspace{0.3cm}
+    \item El objetivo es \textbf{minimizar los costos logísticos} y \textbf{cumplir restricciones operativas}, como:
+    \begin{itemize}
+      \item Ventanas de tiempo para la cosecha y entrega.
+      \item Disponibilidad limitada de equipos y recursos humanos.
+      \item Capacidad de transporte y balance de carga hacia las plantas.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% Diapositiva 2: ¿Qué es MILP?
+\begin{frame}{Fundamentos del modelo de optimización}
+  \begin{itemize}
+    \item \textbf{Programación lineal entera mixta (MILP)}: combina variables continuas (como toneladas) y enteras (como número de vehículos).
+    \item Ideal para representar decisiones logísticas:
+    \begin{itemize}
+      \item Qué, cuándo, dónde y cómo cosechar, cargar y transportar.
+    \end{itemize}
+    \item Se usa MILP porque el problema tiene combinaciones complejas de decisiones con múltiples restricciones.
+  \end{itemize}
+\end{frame}
+
+% Diapositiva 3: Estructura del modelo
+\begin{frame}{Componentes clave del modelo matemático}
+  \textbf{Variables de decisión:}
+  \begin{itemize}
+    \item Si un campo es cosechado un día específico.
+    \item Cantidad de caña transportada por camión.
+    \item Asignación de equipos y horarios.
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \textbf{Función objetivo:}
+  \begin{itemize}
+    \item Minimizar los costos totales de transporte, cosecha y penalizaciones por retraso.
+  \end{itemize}
+
+  \vspace{0.3cm}
+  \textbf{Restricciones:}
+  \begin{itemize}
+    \item Capacidad de camiones y equipos.
+    \item Ventanas de cosecha por campo.
+    \item Balance de carga en fábricas.
+    \item Disponibilidad de recursos diarios.
+  \end{itemize}
+\end{frame}
+
+% Diapositiva 4: Aplicación en Perú
+\begin{frame}{Cómo se aplicó MILP en el estudio de caso}
+  \begin{itemize}
+    \item \textbf{Datos reales de una empresa azucarera en Perú:}
+    \begin{itemize}
+      \item 11 campos de cultivo
+      \item 2 fábricas
+      \item 3 frentes de cosecha
+      \item 4 camiones
+    \end{itemize}
+    \item El modelo permitió generar un plan diario óptimo de cosecha y transporte.
+    \item Se usó software especializado para resolver el modelo (\textbf{CPLEX}).
+    \item Se obtuvo una reducción significativa de costos comparado con la planificación manual.
+  \end{itemize}
+\end{frame}
+
+% Diapositiva 5: Conclusión
+\begin{frame}{Beneficios de usar MILP en logística agrícola}
+  \begin{itemize}
+    \item Mayor eficiencia en uso de recursos.
+    \item Reducción de tiempos muertos y costos.
+    \item Planeación más precisa y realista.
+    \item Este tipo de modelos puede replicarse en otras agroindustrias para mejorar procesos logísticos y tomar mejores decisiones.
+  \end{itemize}
+\end{frame}
+
+\end{document}
+
+
+
+
+
