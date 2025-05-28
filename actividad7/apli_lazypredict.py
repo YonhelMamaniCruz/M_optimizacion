@@ -1,20 +1,12 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-from matplotlib.patches import Rectangle
-import matplotlib.patches as mpatches
 
-# Configuración para gráficos más bonitos
-plt.style.use('seaborn-v0_8-whitegrid')
-plt.rcParams['figure.figsize'] = (10, 6)
-plt.rcParams['font.size'] = 12
 import pandas as pd
+import os
 from lazypredict.Supervised import LazyRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
 # Leer el dataset
-df = pd.read_csv('data_residuos.csv', sep=';', encoding='latin1')
+df = pd.read_csv(os.path.join(os.path.dirname(__file__), 'data_residuos.csv'), sep=';', encoding='latin1')
 
 # Reemplazar espacios en nombres de columnas
 df.columns = df.columns.str.replace(' ', '_')

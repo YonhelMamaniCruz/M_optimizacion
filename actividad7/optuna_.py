@@ -1,11 +1,13 @@
 import pandas as pd
+import os
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.linear_model import ElasticNet
 import optuna
 
 # Carga y preprocesamiento (como tú hiciste)
-df = pd.read_csv('data_residuos.csv', sep=';', encoding='latin1')
+df = pd.read_csv(os.path.join(os.path.dirname(__file__), 'data_residuos.csv'), sep=';', encoding='latin1')
+
 df.columns = df.columns.str.replace(' ', '_')
 
 columnas_categoricas = ['DEPARTAMENTO', 'PROVINCIA', 'DISTRITO',
@@ -75,23 +77,27 @@ y_pred_opt = best_model.predict(X_test)
 rmse_opt = np.sqrt(mean_squared_error(y_test, y_pred_opt))
 r2_opt = r2_score(y_test, y_pred_opt)
 
-# Mostrar resultados
-print("==== Comparación de modelos ElasticNet ====")
-print(f"Sin optimización - RMSE: {rmse_default:.4f}, R²: {r2_default:.4f}")
-print(f"Con Optuna     - RMSE: {rmse_opt:.4f}, R²: {r2_opt:.4f}")
-#------------------------------------------------------------------------------------------------
-
+#
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-metrics = ['RMSE', 'R2']
-default_vals = [rmse_default, r2_default]
-optuna_vals = [rmse_opt, r2_opt]
+plt.figure(figsize=(10, 6))
 
-x = range(len(metrics))
+# Regresión + puntos - modelo sin optimización
+sns.regplot(x=y_test, y=y_pred_default, label='Sin optimización', scatter_kws={'color': 'blue', 'alpha': 0.5}, line_kws={'color': 'blue'})
 
-plt.bar(x, default_vals, width=0.4, label='Sin optimización', align='center')
-plt.bar([i + 0.4 for i in x], optuna_vals, width=0.4, label='Con Optuna', align='center')
-plt.xticks([i + 0.2 for i in x], metrics)
-plt.title("Comparación métricas ElasticNet antes y después de Optuna")
+# Regresión + puntos - modelo con Optuna
+sns.regplot(x=y_test, y=y_pred_opt, label='Con Optuna', scatter_kws={'color': 'green', 'alpha': 0.5}, line_kws={'color': 'green'})
+
+# Línea de predicción perfecta
+max_val = max(max(y_test), max(y_pred_opt))
+min_val = min(min(y_test), min(y_pred_opt))
+plt.plot([min_val, max_val], [min_val, max_val], '--', color='gray', label='Predicción perfecta')
+
+plt.xlabel('Valores reales')
+plt.ylabel('Valores predichos')
+plt.title('ElasticNet: Puntos y línea de regresión')
 plt.legend()
+plt.grid(True)
+plt.tight_layout()
 plt.show()
