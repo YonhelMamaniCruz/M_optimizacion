@@ -1,13 +1,10 @@
 \documentclass[10pt,a4paper]{article}
-
 % Codificación y lenguaje
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{csquotes}
-
 % Matemáticas
 \usepackage{amsmath, amsfonts, amssymb}
-
 % Gráficos y tablas
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -16,53 +13,51 @@
 \usepackage{float}
 \usepackage{tikz}
 \usepackage{pgfplots}
-
 % Algoritmos
 \usepackage{algorithm}
 \usepackage{algorithmic}
-
 % Estilo y formato
 \usepackage{geometry}
 \usepackage{url}
-\usepackage{apacite}
+% CAMBIO: Reemplazar apacite por natbib para citas numéricas
+\usepackage[numbers,square,sort&compress]{natbib}
+% Para manejo de columnas
+\usepackage{multicol}
+\usepackage{balance} % Para balancear columnas al final
 \usepackage{times}
 \usepackage{setspace}
 \usepackage{indentfirst}
 \usepackage{titlesec}
 \usepackage{hyperref}
-% Márgenes y formato APA
+
+% Márgenes y formato
 \geometry{margin=2.5cm}
-\doublespacing
+\singlespacing % Cambio a single spacing para columnas
 \setlength{\parindent}{0.5in}
+\setlength{\columnsep}{0.75cm} % Espacio entre columnas
 
 % Control visual de secciones
 \titleformat{\section}
   {\normalfont\Large\bfseries}{\thesection}{1em}{}
 \titlespacing{\section}{0pt}{*3}{*1.5}
 
+% Configuración adicional para bibliografía numerada
+\bibliographystyle{unsrt} % Estilo numérico sin ordenar alfabéticamente
+
 % ====================
 \begin{document}
-
 % Portada con resumen
 \begin{center}
 \vspace*{2cm}
-
 {\LARGE \textbf{Algoritmos Evolutivos en Espacios de Alta Dimensionalidad:}}\\[0.4em]
 {\LARGE \textbf{Un Análisis Integral para Optimización de Rutas a Gran Escala}}\\[4em]
-
 {\Large \textbf{Yonhel Mamani Cruz}}\\[0.5em]
 Investigador Principal\\
 Universidad Nacional del Altiplano\\[0.5em]
-
 \textbf{Repositorio de Código:} \href{https://github.com/YonhelMamaniCruz/M_optimizacion/tree/main/actividad3_unidad2}{Acceder al repositorio}\\[2em]
-
-
 {\large \today}
 \end{center}
-
 \vspace{2em}
-
-
 % ====================
 % Resumen manual
 \begin{abstract}
@@ -73,10 +68,11 @@ La optimización de rutas a gran escala constituye uno de los problemas más com
 \vspace{1em}
 \noindent\textbf{Palabras clave:} algoritmos evolutivos, optimización combinatoria, ruteo, algoritmos híbridos, alta dimensionalidad.
 
-\vspace{5em}
+\vspace{1em}
 
 
-
+% CONTENIDO DEL ARTÍCULO EN DOS COLUMNAS
+\begin{multicols}{2}
 \section{Introducción}
 
 El Problema de Ruteo de Vehículos (PRV) y sus variantes han sido reconocidos como desafíos centrales dentro de la optimización combinatoria, con aplicaciones críticas en logística, transporte y la gestión de cadenas de suministro \cite{toth2014}. A medida que las redes logísticas modernas escalaron en complejidad y tamaño, la dimensionalidad de los problemas de ruteo aumentó exponencialmente, generando espacios de búsqueda altamente complejos conocidos como ``espacios de optimización de rutas de alta dimensionalidad''.
@@ -159,13 +155,17 @@ La Optimización por Enjambre de Partículas implementa peso de inercia con decr
 El Algoritmo Evolutivo Híbrido combina AG con búsqueda local \cite{voudouris2003}, utiliza un enfoque multi-población, e implementa adaptación dinámica de parámetros. Este algoritmo representa la contribución principal del estudio, integrando las fortalezas de múltiples paradigmas evolutivos en un marco unificado.
 
 El proceso metodológico general se ilustra en la Figura \ref{fig:methodology_flowchart}, que muestra la secuencia de pasos desde la inicialización hasta la obtención de resultados finales, incluyendo los procesos de evaluación, selección, y adaptación de parámetros que caracterizan el enfoque experimental propuesto.
+\end{multicols}
 
-\begin{figure}[H]
+% FIGURA GRANDE - PÁGINA COMPLETA
+\begin{figure*}[htbp]
+
 \centering
 \includegraphics[width=0.8\textwidth]{diagram.png}
 \caption{Diagrama de flujo de la metodología experimental para la evaluación comparativa de algoritmos evolutivos en optimización de rutas}
 \label{fig:methodology_flowchart}
-\end{figure}
+\end{figure*}
+
 
 La evaluación considera múltiples criterios de rendimiento basados en métricas estándar de la literatura. La calidad de solución se mide como el mejor valor objetivo encontrado, representado por $f_{\text{mejor}}$. La velocidad de convergencia se determina por el número de generaciones necesarias para alcanzar 95\% del mejor valor, denominado $G_{95\%}$. El tiempo computacional se calcula como el tiempo total de ejecución en segundos, expresado como $T_{\text{total}}$. La tasa de éxito se calcula como el porcentaje de corridas que encuentran el óptimo global, utilizando la fórmula $TE = \frac{n_{\text{éxito}}}{n_{\text{total}}} \times 100\%$. Finalmente, el índice de diversidad mide la diversidad poblacional mantenida durante la evolución, calculado como $ID = \frac{1}{n}\sum_{i=1}^{n}d(x_i, \bar{x})$.
 
@@ -185,22 +185,25 @@ Tasa de Éxito & Porcentaje de corridas encontrando óptimo global & $TE = \frac
 \end{tabular}
 \label{tab:metrics}
 \end{table}
-
+\begin{multicols}{2}
 Los parámetros experimentales se establecen para asegurar rigor científico y comparabilidad entre algoritmos. Cada algoritmo se ejecuta 30 corridas independientes por instancia de problema, se establece un máximo de 1000 generaciones, el tamaño de población varía adaptativamente entre 50-200 individuos, los criterios de terminación se basan en máximo de generaciones o convergencia, se utiliza un nivel de significancia estadística $\alpha = 0.05$, y la configuración de hardware consiste en procesador Intel i7-12700K con 32GB de RAM.
 
+% OPCIÓN 4: Hacer la tabla más compacta con arraystretch
 \begin{table}[H]
 \centering
+\small
+\renewcommand{\arraystretch}{0.9} % Reduce espacio entre filas
 \caption{Parámetros Experimentales}
 \begin{tabular}{@{}ll@{}}
 \toprule
 \textbf{Parámetro} & \textbf{Valor} \\
 \midrule
-Número de corridas por instancia & 30 \\
-Máximo de generaciones & 1000 \\
-Tamaño de población & 50-200 (adaptativo) \\
-Criterios de terminación & Max generaciones o convergencia \\
-Nivel de significancia estadística & $\alpha = 0.05$ \\
-Configuración de hardware & Intel i7-12700K, 32GB RAM \\
+Corridas por instancia & 30 \\
+Máx. generaciones & 1000 \\
+Tamaño población & 50-200 (adaptativo) \\
+Terminación & Max gen. o convergencia \\
+Significancia & $\alpha = 0.05$ \\
+Hardware & Intel i7-12700K, 32GB \\
 \bottomrule
 \end{tabular}
 \label{tab:parameters}
@@ -208,24 +211,27 @@ Configuración de hardware & Intel i7-12700K, 32GB RAM \\
 
 El diseño experimental también incluye la implementación del algoritmo evolutivo híbrido siguiendo el pseudocódigo presentado en el Algoritmo \ref{alg:hea}, basado en principios establecidos de hibridación evolutiva \cite{alba2013}.
 
+
+% ALGORITMO COMPACTO
 \begin{algorithm}[H]
+\small % Reduce el tamaño de fuente
 \caption{Algoritmo Evolutivo Híbrido para Optimización de Rutas}
 \label{alg:hea}
 \begin{algorithmic}[1]
 \STATE Inicializar población $P$ de tamaño $N$
 \STATE Evaluar fitness para todos los individuos en $P$
-\STATE $\text{generacion} \leftarrow 0$
-\WHILE{$\text{generacion} < \text{max\_generaciones}$ Y no convergido}
-    \STATE Seleccionar padres usando selección por torneo
-    \STATE Aplicar operador de cruce (OX/PMX)
-    \STATE Aplicar operador de mutación (2-opt/3-opt)
-    \STATE Aplicar búsqueda local a la descendencia
-    \STATE Evaluar fitness de la descendencia
-    \STATE Actualizar población usando reemplazo elitista
-    \STATE Adaptar parámetros basado en métricas de diversidad
-    \STATE $\text{generacion} \leftarrow \text{generacion} + 1$
+\STATE $\text{gen} \leftarrow 0$
+\WHILE{$\text{gen} < \text{max\_gen}$ Y no convergido}
+    \STATE Seleccionar padres (torneo)
+    \STATE Aplicar cruce (OX/PMX)
+    \STATE Aplicar mutación (2-opt/3-opt)
+    \STATE Aplicar búsqueda local
+    \STATE Evaluar fitness descendencia
+    \STATE Actualizar población (elitista)
+    \STATE Adaptar parámetros (diversidad)
+    \STATE $\text{gen} \leftarrow \text{gen} + 1$
 \ENDWHILE
-\STATE Retornar mejor solución encontrada
+\STATE Retornar mejor solución
 \end{algorithmic}
 \end{algorithm}
 
@@ -238,32 +244,35 @@ Los resultados experimentales proporcionaron perspectivas significativas sobre e
 
 Los resultados experimentales demostraron diferencias sustanciales en el rendimiento entre los algoritmos evaluados. El Algoritmo Evolutivo Híbrido (AEH) consistentemente superó a otros enfoques en la mayoría de las métricas de evaluación, mientras que el enfoque aleatorio sirvió como línea base para comparación.
 
+% OPCIÓN 3: Usar resizebox para ajustar exactamente al ancho
+\usepackage{graphicx} % Ya lo tienes
 \begin{table}[H]
 \centering
-\caption{Resultados Comparativos de Rendimiento de Algoritmos}
+\caption{Resultados Comparativos de Rendimiento}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}lccccc@{}}
 \toprule
-\textbf{Algoritmo} & \textbf{Media} & \textbf{Desviación Estándar} & \textbf{Mejor} & \textbf{Peor} & \textbf{Tasa de Éxito (\%)} \\
+\textbf{Algoritmo} & \textbf{Media} & \textbf{Desv. Est.} & \textbf{Mejor} & \textbf{Peor} & \textbf{Éxito (\%)} \\
 \midrule
-Aleatorio & 73,593,576.9 & 8,247,521.3 & 61,420,145.2 & 89,735,621.8 & 0.0 \\
-AG & 42,156,234.7 & 3,892,145.6 & 37,245,891.3 & 48,967,432.1 & 23.3 \\
-ED & 38,724,891.2 & 2,156,789.4 & 35,891,234.7 & 43,567,291.8 & 33.3 \\
-OEP & 41,892,567.3 & 4,234,567.8 & 36,789,234.5 & 49,234,891.7 & 26.7 \\
-AEH & 34,892,902.0 & 1,789,456.2 & 32,567,234.1 & 38,234,567.9 & 53.3 \\
+Aleatorio & 73.59M & 8.25M & 61.42M & 89.74M & 0.0 \\
+AG & 42.16M & 3.89M & 37.25M & 48.97M & 23.3 \\
+ED & 38.72M & 2.16M & 35.89M & 43.57M & 33.3 \\
+OEP & 41.89M & 4.23M & 36.79M & 49.23M & 26.7 \\
+AEH & 34.89M & 1.79M & 32.57M & 38.23M & 53.3 \\
 \bottomrule
 \end{tabular}
+}
 \label{tab:performance_comparison}
 \end{table}
-
 El análisis estadístico reveló que el AEH logró una mejora del 52.6\% en comparación con el método aleatorio, reduciendo la distancia total de 73,593,576.9 a 34,892,902.0 unidades. Esta mejora representa una reducción absoluta de 38,700,674.9 unidades de distancia, lo que se traduce en ahorros operacionales significativos en aplicaciones del mundo real.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.95\textwidth]{comparacion_rutas_mejorado.png}
-    \caption{Análisis comparativo del rendimiento de algoritmos de optimización de rutas. La gráfica muestra las métricas de tiempo de ejecución, calidad de solución y convergencia para los diferentes algoritmos implementados en Python.}
-    \label{fig:comparacion_rutas}
+% OPCIÓN 2: FIGURA COMPACTA EN COLUMNA
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{comparacion_rutas_mejorado.png}
+\caption{Análisis comparativo del rendimiento de algoritmos de optimización de rutas.}
+\label{fig:comparacion_rutas}
 \end{figure}
-
 En la imagen \ref{fig:comparacion_rutas} se observa que el algoritmo propuesto supera significativamente a los métodos tradicionales en términos de eficiencia computacional y calidad de las rutas generadas.
 
 \subsection{Análisis de Convergencia}
@@ -276,19 +285,22 @@ El análisis de convergencia reveló que el AEH alcanzó 95\% de su mejor soluci
 
 La evaluación de escalabilidad examinó el rendimiento de algoritmos a través de diferentes dimensiones de problema, desde instancias pequeñas hasta problemas de gran escala. Los resultados indicaron que el rendimiento relativo de algoritmos cambia significativamente con el tamaño del problema.
 
+% TABLA COMPACTA CON RESIZEBOX
 \begin{table}[H]
 \centering
 \caption{Análisis de Escalabilidad por Dimensión de Problema}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}lcccc@{}}
 \toprule
 \textbf{Dimensión} & \textbf{AG} & \textbf{ED} & \textbf{OEP} & \textbf{AEH} \\
 \midrule
-20 ciudades & 234,567.2 & 228,431.5 & 241,892.7 & 221,345.8 \\
-35 ciudades & 1,234,567.3 & 1,156,789.2 & 1,289,234.6 & 1,089,456.1 \\
-50 ciudades & 8,234,567.4 & 7,567,891.3 & 8,456,789.5 & 6,789,234.2 \\
-62 ciudades & 34,892,902.0 & 38,724,891.2 & 41,892,567.3 & 32,567,234.1 \\
+20 ciudades & 234.57K & 228.43K & 241.89K & 221.35K \\
+35 ciudades & 1.23M & 1.16M & 1.29M & 1.09M \\
+50 ciudades & 8.23M & 7.57M & 8.46M & 6.79M \\
+62 ciudades & 34.89M & 38.72M & 41.89M & 32.57M \\
 \bottomrule
 \end{tabular}
+}
 \label{tab:scalability}
 \end{table}
 
@@ -299,18 +311,23 @@ Los resultados de escalabilidad demostraron que el AEH mantiene su ventaja compe
 
 El análisis de diversidad poblacional proporcionó perspectivas sobre los mecanismos de exploración de diferentes algoritmos. El AEH mantuvo niveles de diversidad más altos durante el proceso evolutivo, lo que contribuyó a su capacidad de escapar de óptimos locales .
 
+% FIGURA COMPACTA PARA COLUMNA
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-    width=12cm,
-    height=6cm,
+    width=\columnwidth, % Ajusta automáticamente al ancho de columna
+    height=0.6\columnwidth, % Altura proporcional
     xlabel={Generaciones},
     ylabel={Índice de Diversidad},
     legend pos=north east,
     grid=major,
     xmin=0, xmax=1000,
-    ymin=0, ymax=1
+    ymin=0, ymax=1,
+    xlabel style={font=\small},
+    ylabel style={font=\small},
+    tick label style={font=\scriptsize},
+    legend style={font=\scriptsize}
 ]
 \addplot[thick,red] coordinates {
     (0,0.95) (100,0.78) (200,0.65) (300,0.52) (400,0.41) 
@@ -334,6 +351,8 @@ El análisis de diversidad poblacional proporcionó perspectivas sobre los mecan
 \caption{Evolución de la Diversidad Poblacional}
 \label{fig:diversity}
 \end{figure}
+
+
 
 El AEH mantuvo un índice de diversidad significativamente más alto (0.34) al final del proceso evolutivo comparado con AG (0.12), ED (0.25), y OEP (0.17). Esta diversidad mantenida contribuyó a la capacidad del algoritmo de continuar explorando el espacio de solución y evitar convergencia prematura.
 
@@ -376,7 +395,9 @@ En conclusión, esta investigación demuestra que los algoritmos evolutivos híb
 
 Los datos utilizados en este estudio están disponibles en el repositorio público de GitHub: \href{https://github.com/YonhelMamaniCruz/M_optimizacion/tree/main/actividad3_unidad2}{Acceder al repositorio}. El repositorio incluye conjuntos de datos completos, código fuente de implementación de algoritmos, scripts de análisis estadístico, y documentación detallada para reproducir los experimentos.
 
-Los conjuntos de datos incluyen archivos CSV con matrices de distancia, coordenadas geográficas y configuraciones de problemas utilizadas en la evaluación experimental. El código está documentado y organizado para facilitar la comprensión y reutilización por parte de otros
+Los conjuntos de datos incluyen archivos CSV con matrices de distancia, coordenadas geográficas y configuraciones de problemas utilizadas en la evaluación experimental. Además, el dataset original fue obtenido de Kaggle y puede ser consultado en: \href{https://www.kaggle.com/datasets/mexwell/large-scale-route-optimization}{https://www.kaggle.com/datasets/mexwell/large-scale-route-optimization}. 
+
+El código está documentado y organizado para facilitar la comprensión y reutilización por parte de otros.
 
 
 
@@ -461,6 +482,7 @@ Yang, X.-S. (2013). Metaheuristics in optimization. \textit{Scholarpedia}, 8(10)
 Zhang, Q., \& Li, H. (2007). MOEA/D: A multiobjective evolutionary algorithm based on decomposition. \textit{IEEE Transactions on Evolutionary Computation}, 11(6), 712–731. \url{https://doi.org/10.1109/TEVC.2007.892759}
 
 \end{thebibliography}
+
 
 
 \end{document}
